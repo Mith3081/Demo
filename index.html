@@ -3,56 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Fallback Flow - Certificate Management</title>
+    <title>APQP Prototype</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Certificate Management</h1>
-        <div class="upload-section">
-            <label for="certificate-file">Upload Certificate File:</label>
-            <input type="file" id="certificate-file" accept=".cer,.crt,.pem,.der">
-        </div>
-        <div class="preview-section">
-            <h2>Certificate Preview</h2>
-            <div id="preview-content">No certificate uploaded yet.</div>
-        </div>
-        <div class="status-section">
-            <h2>Status</h2>
-            <div id="status-display">Ready to upload.</div>
-        </div>
-        <div id="notification" class="notification hidden"></div>
-    </div>
 
-    <!-- Fallback Modal -->
-    <div id="fallback-modal" class="modal hidden">
-        <div class="modal-overlay"></div>
-        <div class="modal-content">
-            <h2>Manual Certificate Details (Fallback)</h2>
-            <form id="certificate-form">
-                <div class="form-group">
-                    <label for="subject">Subject:</label>
-                    <input type="text" id="subject" readonly>
+    <div class="page-container">
+        <!-- Landing Page Tiles -->
+        <div id="landing-page" class="container">
+            <h1>APQP Prototypes</h1>
+            <div class="tiles-container">
+                <div class="tile" id="tasks-tile">
+                    <i class="fas fa-tasks tile-icon"></i>
+                    <h3>Tasks</h3>
+                    <p>Enhanced task management view.</p>
                 </div>
-                <div class="form-group">
-                    <label for="issuer">Issuer:</label>
-                    <input type="text" id="issuer" readonly>
+                <div class="tile disabled">
+                    <i class="fas fa-chart-bar tile-icon"></i>
+                    <h3>Dashboard</h3>
+                    <p>Analytics and reporting.</p>
                 </div>
-                <div class="form-group">
-                    <label for="valid-from">Valid From:</label>
-                    <input type="text" id="valid-from" readonly>
+                <div class="tile disabled">
+                    <i class="fas fa-file-alt tile-icon"></i>
+                    <h3>Documents</h3>
+                    <p>Centralized document repository.</p>
                 </div>
-                <div class="form-group">
-                    <label for="expiry-date">Certificate Expiry Date:</label>
-                    <input type="date" id="expiry-date" required>
+            </div>
+        </div>
+
+        <!-- Tasks Prototype View (Initially Hidden) -->
+        <div id="tasks-view" class="container hidden">
+            <header class="page-header">
+                <button id="back-to-landing" class="back-button"><i class="fas fa-arrow-left"></i> Back to Tiles</button>
+                <h1>APQP Tasks</h1>
+            </header>
+
+            <!-- 2. Project Details Section (Expand/Collapse) -->
+            <div id="project-details" class="project-details-section">
+                <div id="project-summary-bar" class="summary-bar">
+                    <div class="summary-item"><strong>Part No:</strong> P-12345</div>
+                    <div class="summary-item"><strong>Part Name:</strong> Engine Mount Bracket</div>
+                    <div class="summary-item"><strong>APQP Leader:</strong> John Doe</div>
+                    <div class="summary-item"><strong>Supplier:</strong> ACME Corp (S-9876)</div>
+                    <button id="toggle-details-btn" class="toggle-btn" aria-expanded="true" aria-controls="project-details-content">
+                        <i class="fas fa-chevron-up"></i>
+                    </button>
                 </div>
-                <div class="form-group">
-                    <label for="serial-number">Serial Number:</label>
-                    <input type="text" id="serial-number" readonly>
+                <div id="project-details-content" class="details-content">
+                    <div class="detail-grid">
+                        <div><strong>Customer:</strong> Global Auto</div>
+                        <div><strong>Plant:</strong> Detroit</div>
+                        <div><strong>Program:</strong> 2026 Sedan</div>
+                        <div><strong>Engineer:</strong> Jane Smith</div>
+                        <div><strong>Status:</strong> In Progress</div>
+                        <div><strong>Last Update:</strong> 2025-11-28</div>
+                    </div>
                 </div>
-                <button type="submit" id="submit-btn">Submit</button>
-            </form>
-            <button id="close-modal">Close</button>
+            </div>
+
+            <!-- 1. Tab Structure (Below Project Details) -->
+            <div class="tab-bar">
+                <button class="tab-link active">Tasks</button>
+                <button class="tab-link">Gantt</button>
+                <button class="tab-link">Issues</button>
+                <button class="tab-link">Team</button>
+            </div>
+
+            <!-- Task List Section -->
+            <div class="task-list-container">
+                <div class="task-list-header" id="task-list-header">
+                    <div class="header-cell task-name">Task</div>
+                    <div class="header-cell timeline">Timeline & Responsibility</div>
+                    <div class="header-cell status">Status & Progress</div>
+                    <div class="header-cell notifications">Notifications</div>
+                </div>
+                <div class="task-list-body">
+                    <!-- 4. Chapter Section -->
+                    <div class="chapter-header">1: Kick-Off Review</div>
+                    
+                    <!-- Task Item -->
+                    <div class="task-item">
+                        <div class="task-cell task-name">Define Project Scope</div>
+                        <!-- 3B. Timeline & Responsibility Column -->
+                        <div class="task-cell timeline">
+                            <div class="timeline-info">
+                                <div class="responsible"><i class="fas fa-user"></i> John Doe (Lead)</div>
+                                <div class="dates">
+                                    <span><strong>Start:</strong> 2025-10-01</span>
+                                    <span><strong>Due:</strong> 2025-10-05</span>
+                                    <span><strong>Actual:</strong> 2025-10-04</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 3C. Status & Progress Column -->
+                        <div class="task-cell status">
+                            <div class="status-content">
+                                <span class="approval-indicator approved" title="Approved"><i class="fas fa-check-circle"></i></span>
+                                <span class="status-badge status-completed">Completed</span>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" style="width: 100%;"></div>
+                                <span>100%</span>
+                            </div>
+                        </div>
+                        <!-- 3A. Notification Icons Column -->
+                        <div class="task-cell notifications">
+                            <div class="icon-grid">
+                                <i class="fas fa-flag active" title="Flagged"></i>
+                                <i class="fas fa-calendar-alt" title="Date Changed"></i>
+                                <i class="fas fa-paperclip" title="Attachment"></i>
+                                <i class="fas fa-history" title="History"></i>
+                                <i class="fas fa-comment-dots active" title="Has Comments"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Chapter Section -->
+                    <div class="chapter-header">2: Product Design Review</div>
+
+                    <!-- Task Item -->
+                    <div class="task-item">
+                        <div class="task-cell task-name">Finalize DFMEA</div>
+                        <div class="task-cell timeline">
+                            <div class="timeline-info">
+                                <div class="responsible"><i class="fas fa-user"></i> Sarah Lee</div>
+                                <div class="dates">
+                                    <span><strong>Start:</strong> 2025-11-15</span>
+                                    <span><strong>Due:</strong> 2025-12-10</span>
+                                    <span><strong>Actual:</strong> -</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="task-cell status">
+                            <div class="status-content">
+                                <span class="approval-indicator pending" title="Pending Approval"><i class="fas fa-hourglass-half"></i></span>
+                                <span class="status-badge status-in-progress">In Progress</span>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" style="width: 75%;"></div>
+                                <span>75%</span>
+                            </div>
+                        </div>
+                        <div class="task-cell notifications">
+                            <div class="icon-grid">
+                                <i class="fas fa-flag"></i>
+                                <i class="fas fa-calendar-alt active"></i>
+                                <i class="fas fa-paperclip active"></i>
+                                <i class="fas fa-history"></i>
+                                <i class="fas fa-comment-dots"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add more tasks as needed -->
+                </div>
+            </div>
         </div>
     </div>
 
